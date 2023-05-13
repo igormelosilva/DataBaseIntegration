@@ -27,7 +27,7 @@ namespace DataBaseIntegration
             {
                 using(NpgsqlCommand cmd = new NpgsqlCommand())
                 {
-                    cmd.CommandText = @"INSERT IN TO products " +
+                    cmd.CommandText = @"INSERT INTO products " +
                                       @"(name, model, quantity, value)" +
                                       @"VALUES" +
                                       @"(@name, @model, @quantity, @value);";
