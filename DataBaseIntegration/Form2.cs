@@ -15,6 +15,7 @@ namespace DataBaseIntegration
         public Form2()
         {
             InitializeComponent();
+            LoadProducts();
         }
 
         private void btnAdd_Click(object sender, EventArgs e)
@@ -31,6 +32,12 @@ namespace DataBaseIntegration
             if (!response)
                 MessageBox.Show("Erro ao tentar gravar o produto");
 
+        }
+
+        private void LoadProducts()
+        {
+            Product product = new Product();
+            dgvProdutos.DataSource = product.GetAll();
         }
     }
 }
