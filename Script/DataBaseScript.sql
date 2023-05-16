@@ -12,3 +12,4 @@ CREATE TABLE IF NOT EXISTS products(
 --Adicionar um arquivo de configurações
 --inserir as credenciais no arquivo de configuração
 --Criar a classe de conexão com o banco
+SELECT * FROM products;

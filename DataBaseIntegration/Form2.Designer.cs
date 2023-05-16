@@ -39,6 +39,8 @@
             lblName = new Label();
             txtId = new TextBox();
             blId = new Label();
+            dgvProdutos = new DataGridView();
+            ((System.ComponentModel.ISupportInitialize)dgvProdutos).BeginInit();
             SuspendLayout();
             // 
             // btnAdd
@@ -131,11 +133,27 @@
             blId.TabIndex = 11;
             blId.Text = "ID";
             // 
+            // dgvProdutos
+            // 
+            dgvProdutos.AllowUserToAddRows = false;
+            dgvProdutos.AllowUserToDeleteRows = false;
+            dgvProdutos.AllowUserToResizeColumns = false;
+            dgvProdutos.AllowUserToResizeRows = false;
+            dgvProdutos.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dgvProdutos.Location = new Point(252, 41);
+            dgvProdutos.MultiSelect = false;
+            dgvProdutos.Name = "dgvProdutos";
+            dgvProdutos.RowTemplate.Height = 25;
+            dgvProdutos.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            dgvProdutos.Size = new Size(523, 201);
+            dgvProdutos.TabIndex = 22;
+            // 
             // Form2
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
+            Controls.Add(dgvProdutos);
             Controls.Add(btnAdd);
             Controls.Add(txtValue);
             Controls.Add(lblValue);
@@ -149,6 +167,7 @@
             Controls.Add(blId);
             Name = "Form2";
             Text = "Form2";
+            ((System.ComponentModel.ISupportInitialize)dgvProdutos).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -166,5 +185,6 @@
         private Label lblName;
         private TextBox txtId;
         private Label blId;
+        private DataGridView dgvProdutos;
     }
 }

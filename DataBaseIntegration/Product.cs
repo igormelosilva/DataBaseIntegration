@@ -10,7 +10,7 @@ namespace DataBaseIntegration
     public class Product
     {
         //Atributos
-        int Id { get; set; }
+        int id { get; set; }
         public string name { get; set; }
         public string model { get; set; }
         public int quantity { get; set; }
@@ -49,6 +49,82 @@ namespace DataBaseIntegration
                 
             }
             return result;
+        }
+
+        public Product Get(int id)
+        {
+            Product result = new Product();
+            DataBaseAccess dba =new DataBaseAccess();
+
+            try
+            {
+                using(NpgsqlCommand cmd = new NpgsqlCommand())
+                {
+                    cmd.CommandText = @"SELECT * FROM products " +
+                                      @"WHERE id = @id;";
+
+                    cmd.Parameters.AddWithValue("@id", id);
+
+                    using(cmd.Connection=dba.OpenConnection())
+                    using(NpgsqlDataReader reader = cmd.ExecuteReader())
+                    {
+                        if (reader.Read())
+                        {
+                            result.id = Convert.ToInt32(reader["id"]);
+                            result.name = reader["name"].ToString();
+                            result.model = reader["model"].ToString();
+                            result.quantity = Convert.ToInt32(reader["value"].ToString());
+                        }
+                    }
+                }
+
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+            return result;
+        }
+
+        public List<Product> GetAll()
+        {
+            List<Product> result = new List<Product>();
+            DataBaseAccess dba = new DataBaseAccess();
+
+            try
+            {
+                using (NpgsqlCommand cmd = new NpgsqlCommand())
+                {
+                    cmd.CommandText = @"SELECT * FROM products;";
+
+                    cmd.Parameters.AddWithValue("@id", id);
+
+                    using (cmd.Connection = dba.OpenConnection())
+                    using (NpgsqlDataReader reader = cmd.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            Product product = new Product();
+                            product.id = Convert.ToInt32(reader["id"]);
+                            product.name = reader["name"].ToString();
+                            product.model = reader["model"].ToString();
+                            product.quantity = Convert.ToInt32(reader["value"].ToString());
+
+                            result.Add(product);
+                        }
+                    }
+                }
+
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+            return result;
+
+
         }
 
     }
