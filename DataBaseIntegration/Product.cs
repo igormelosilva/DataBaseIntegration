@@ -10,7 +10,7 @@ namespace DataBaseIntegration
     public class Product
     {
         //Atributos
-        int id { get; set; }
+        public int id { get; set; }
         public string name { get; set; }
         public string model { get; set; }
         public int quantity { get; set; }
@@ -126,6 +126,72 @@ namespace DataBaseIntegration
 
 
         }
+        
+        public bool Delete(int id)
+        {
+            bool result = false;
+            DataBaseAccess dba = new DataBaseAccess();
 
+            try
+            {
+                using(NpgsqlCommand cmd = new NpgsqlCommand()) 
+                {
+                    cmd.CommandText = @"DELETE FROM products " +
+                                      @"WHERE id = @id;";
+
+                    cmd.Parameters.AddWithValue ("@id", id);
+
+                    using(cmd.Connection = dba.OpenConnection())
+                    {
+                        cmd.ExecuteNonQuery();
+                        result = true;
+                    }
+                        
+                }
+            }
+            catch (Exception ex)
+            {
+
+                throw;
+            }
+            return result;
+        }
+
+        public bool Update(Product product) 
+        {
+            bool result = false;
+            DataBaseAccess dba = new DataBaseAccess();
+
+            try
+            {
+                using(NpgsqlCommand cmd = new NpgsqlCommand()) 
+                {
+                    cmd.CommandText = @"UPDATE products " +
+                                      @"SET name = @name, model = @model, quantity = @quantity, value = @value " +
+                                      @"WHERE id = @id;";
+
+                    cmd.Parameters.AddWithValue("@id", product.id);
+                    cmd.Parameters.AddWithValue("@name", product.name);
+                    cmd.Parameters.AddWithValue("@model", product.model);
+                    cmd.Parameters.AddWithValue("@quantity", product.quantity);
+                    cmd.Parameters.AddWithValue("@value", product.value);
+
+                    using(cmd.Connection = dba.OpenConnection())
+                    {
+                        cmd.ExecuteNonQuery();
+                        result = true;
+                    }
+
+                }  
+
+            }
+            catch (Exception ex)
+            {
+
+                throw;
+            }
+            return result;
+        
+        }
     }
 }

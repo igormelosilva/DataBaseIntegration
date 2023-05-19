@@ -31,6 +31,10 @@ namespace DataBaseIntegration
 
             if (!response)
                 MessageBox.Show("Erro ao tentar gravar o produto");
+            else
+            {
+                LoadProducts();
+            }
 
         }
 
@@ -38,6 +42,56 @@ namespace DataBaseIntegration
         {
             Product product = new Product();
             dgvProdutos.DataSource = product.GetAll();
+        }
+
+        private void dgvProdutos_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            try
+            {
+                Product product = new Product();
+                int id = Convert.ToInt32(dgvProdutos.Rows[dgvProdutos.CurrentRow.Index].Cells[0].Value);
+
+                product = product.Get(id);
+
+                txtId.Text = product.id.ToString();
+                txtName.Text = product.name.ToString();
+                txtModel.Text = product.model.ToString();
+                txtQuantity.Text = product.quantity.ToString();
+                txtValue.Text = product.value.ToString();
+            }
+            catch (Exception ex)
+            {
+
+                MessageBox.Show("Erro ao tentar carregar os dados do produto");
+            }
+        }
+
+        private void btnDelete_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                DialogResult dialog = MessageBox.Show("Confirma excluir", "Excluir", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                if (dialog == DialogResult.Yes)
+                {
+                    Product product = new Product();
+                    int id = Convert.ToInt32(txtId.Text);
+                    bool response = product.Delete(id);
+
+                    if (!response)
+                    {
+                        MessageBox.Show("Erro ao tentar excluir");
+                    }
+                    else
+                    {
+                        LoadProducts();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+
+                throw;
+            }
         }
     }
 }

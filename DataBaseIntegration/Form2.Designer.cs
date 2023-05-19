@@ -40,12 +40,14 @@
             txtId = new TextBox();
             blId = new Label();
             dgvProdutos = new DataGridView();
+            btnDelete = new Button();
+            btnUpdate = new Button();
             ((System.ComponentModel.ISupportInitialize)dgvProdutos).BeginInit();
             SuspendLayout();
             // 
             // btnAdd
             // 
-            btnAdd.Location = new Point(103, 263);
+            btnAdd.Location = new Point(39, 277);
             btnAdd.Name = "btnAdd";
             btnAdd.Size = new Size(75, 23);
             btnAdd.TabIndex = 21;
@@ -147,12 +149,34 @@
             dgvProdutos.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dgvProdutos.Size = new Size(523, 201);
             dgvProdutos.TabIndex = 22;
+            dgvProdutos.CellClick += dgvProdutos_CellClick;
+            // 
+            // btnDelete
+            // 
+            btnDelete.Location = new Point(133, 277);
+            btnDelete.Name = "btnDelete";
+            btnDelete.Size = new Size(75, 23);
+            btnDelete.TabIndex = 23;
+            btnDelete.Text = "DELETE";
+            btnDelete.UseVisualStyleBackColor = true;
+            btnDelete.Click += btnDelete_Click;
+            // 
+            // btnUpdate
+            // 
+            btnUpdate.Location = new Point(234, 277);
+            btnUpdate.Name = "btnUpdate";
+            btnUpdate.Size = new Size(75, 23);
+            btnUpdate.TabIndex = 24;
+            btnUpdate.Text = "UPDATE";
+            btnUpdate.UseVisualStyleBackColor = true;
             // 
             // Form2
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
+            Controls.Add(btnUpdate);
+            Controls.Add(btnDelete);
             Controls.Add(dgvProdutos);
             Controls.Add(btnAdd);
             Controls.Add(txtValue);
@@ -186,5 +210,7 @@
         private TextBox txtId;
         private Label blId;
         private DataGridView dgvProdutos;
+        private Button btnDelete;
+        private Button btnUpdate;
     }
 }
