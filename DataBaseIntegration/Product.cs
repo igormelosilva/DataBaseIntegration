@@ -73,7 +73,8 @@ namespace DataBaseIntegration
                             result.id = Convert.ToInt32(reader["id"]);
                             result.name = reader["name"].ToString();
                             result.model = reader["model"].ToString();
-                            result.quantity = Convert.ToInt32(reader["value"].ToString());
+                            result.quantity = Convert.ToInt32(reader["quantity"].ToString());
+                            result.value = float.Parse(reader["value"].ToString());
                         }
                     }
                 }
@@ -109,7 +110,8 @@ namespace DataBaseIntegration
                             product.id = Convert.ToInt32(reader["id"]);
                             product.name = reader["name"].ToString();
                             product.model = reader["model"].ToString();
-                            product.quantity = Convert.ToInt32(reader["value"].ToString());
+                            product.quantity = Convert.ToInt32(reader["quantity"].ToString());
+                            product.value = float.Parse(reader["value"].ToString());
 
                             result.Add(product);
                         }
@@ -117,7 +119,7 @@ namespace DataBaseIntegration
                 }
 
             }
-            catch (Exception)
+            catch (Exception ex)
             {
 
                 throw;
@@ -192,6 +194,31 @@ namespace DataBaseIntegration
             }
             return result;
         
+        }
+
+        public int Count()
+        {
+            int result = 0;
+            DataBaseAccess dba = new DataBaseAccess();
+
+            try
+            {
+                using (NpgsqlCommand cmd = new NpgsqlCommand())
+                {
+                    cmd.CommandText = @"SELECT COUNT(id) FROM products;";
+
+                    using(cmd.Connection = dba.OpenConnection())
+                    {
+                        result = Convert.ToInt32(cmd.ExecuteScalar());
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+
+                
+            }
+            return result;
         }
     }
 }

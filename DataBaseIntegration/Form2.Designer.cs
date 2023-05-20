@@ -42,6 +42,8 @@
             dgvProdutos = new DataGridView();
             btnDelete = new Button();
             btnUpdate = new Button();
+            btnClear = new Button();
+            lblCount = new Label();
             ((System.ComponentModel.ISupportInitialize)dgvProdutos).BeginInit();
             SuspendLayout();
             // 
@@ -121,6 +123,7 @@
             // 
             // txtId
             // 
+            txtId.Enabled = false;
             txtId.Location = new Point(133, 42);
             txtId.Name = "txtId";
             txtId.Size = new Size(100, 23);
@@ -169,12 +172,35 @@
             btnUpdate.TabIndex = 24;
             btnUpdate.Text = "UPDATE";
             btnUpdate.UseVisualStyleBackColor = true;
+            btnUpdate.Click += btnUpdate_Click;
+            // 
+            // btnClear
+            // 
+            btnClear.Location = new Point(331, 277);
+            btnClear.Name = "btnClear";
+            btnClear.Size = new Size(75, 23);
+            btnClear.TabIndex = 25;
+            btnClear.Text = "CLEAR";
+            btnClear.UseVisualStyleBackColor = true;
+            btnClear.Click += btnClear_Click;
+            // 
+            // lblCount
+            // 
+            lblCount.AutoSize = true;
+            lblCount.Location = new Point(759, 281);
+            lblCount.Name = "lblCount";
+            lblCount.Size = new Size(16, 15);
+            lblCount.TabIndex = 26;
+            lblCount.Text = "...";
             // 
             // Form2
             // 
+            AcceptButton = btnAdd;
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(800, 450);
+            ClientSize = new Size(800, 310);
+            Controls.Add(lblCount);
+            Controls.Add(btnClear);
             Controls.Add(btnUpdate);
             Controls.Add(btnDelete);
             Controls.Add(dgvProdutos);
@@ -212,5 +238,7 @@
         private DataGridView dgvProdutos;
         private Button btnDelete;
         private Button btnUpdate;
+        private Button btnClear;
+        private Label lblCount;
     }
 }

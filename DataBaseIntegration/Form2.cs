@@ -15,6 +15,7 @@ namespace DataBaseIntegration
         public Form2()
         {
             InitializeComponent();
+            CountProducts();
             LoadProducts();
         }
 
@@ -33,9 +34,21 @@ namespace DataBaseIntegration
                 MessageBox.Show("Erro ao tentar gravar o produto");
             else
             {
+                CountProducts();
+                ClearForm();
                 LoadProducts();
             }
 
+        }
+        private void ClearForm()
+        {
+            txtId.Clear();
+            txtName.Clear();
+            txtModel.Clear();
+            txtQuantity.Clear();
+            txtValue.Clear();
+
+            txtName.Focus();
         }
 
         private void LoadProducts()
@@ -83,6 +96,7 @@ namespace DataBaseIntegration
                     }
                     else
                     {
+                        CountProducts();
                         LoadProducts();
                     }
                 }
@@ -92,6 +106,53 @@ namespace DataBaseIntegration
 
                 throw;
             }
+        }
+
+        private void btnUpdate_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                DialogResult dialog = MessageBox.Show("Confirma alterar", "Alterar", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
+                if (dialog == DialogResult.Yes)
+
+                {
+                    Product product = new Product();
+
+                    product.id = Convert.ToInt32(txtId.Text);
+                    product.name = txtName.Text;
+                    product.model = txtModel.Text;
+                    product.quantity = Convert.ToInt32(txtQuantity.Text);
+                    product.value = float.Parse(txtValue.Text);
+
+                    bool response = product.Update(product);
+
+                    if (!response)
+                    {
+                        MessageBox.Show("Erro ao tentar alterar");
+                    }
+                    else
+                    {
+                        LoadProducts();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+
+                throw;
+            }
+        }
+
+        private void btnClear_Click(object sender, EventArgs e)
+        {
+            ClearForm();
+        }
+
+        private void CountProducts()
+        {
+            Product product = new Product();
+            lblCount.Text = product.Count().ToString();
         }
     }
 }
